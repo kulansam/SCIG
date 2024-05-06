@@ -21,22 +21,20 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
   ```sh
   cd data
   tar -xf human_mouse_GRN.zip
-  ```
-  ```sh
   cd ..
   ```
-    - Create conda environment with python:
+- Create conda environment with python:
   ```sh
   conda create -n scig (Python version >=3.9 preferable)
   ```
     ```sh
   conda activate scig
   ```
-  - Install required all python packages
+- Install required all python packages
   ```sh
   pip install -r requirements.txt
   ```
-  -  install SCIG
+-  install SCIG
   ```sh
   pip install .
   ```
