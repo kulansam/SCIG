@@ -10,7 +10,7 @@ The input for SCIG consists of either raw read counts from bulk-seq or gene per 
 
 For CIG-reg-Pred, the required inputs include the predicted cell identity scores obtained from the SCIG algorithm, along with gene regulatory network (GRN) information. It's worth noting that the GRN information is already integrated into the model.
 # Installation
-- download SCIG package from GitHub:
+- Download SCIG package from GitHub:
   ```sh
   git clone https://github.com/kulansam/SCIG.git
   ```
@@ -61,8 +61,11 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
     -inputtype: The format of the input data differs based on the analysis level.
                 1. For bulk or pseudobulk data, the value is either "rawcount" or "tpm".
                 2. For single-cell data, the value should be "umicount".
-
+  
     -file: name of the input file name with the tab-separated file format.
+                1. For bulk or pseudobulk data,the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
+                2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
+
   ```
 
 - How can you discover cell identity genes (CIGs) at single-cell level using single-cell RNA sequencing profiles?
