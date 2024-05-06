@@ -41,7 +41,7 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
 # Tutorial 
 - How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either bulk-RNA  or single-cell RNA sequencing profiles?
 
-  Use the following command:
+  Run the following command under 'src' directory:
   
   ```sh
     python SCIG.py -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm | umicount> -file <tab separated expression data file | cellranger output folder>
@@ -66,6 +66,35 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
     -file: name of the input file name with the tab-separated file format.
                 1. For bulk or pseudobulk data, the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
                 2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
+# Example 
+- How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either bulk-RNA  or single-cell RNA sequencing profiles?
+
+  Use the following command:
+  
+  ```sh
+    python SCIG.py -organism  mm -assaytype bulk -inputtype rawcount -file ./
+  ```
+  ```sh
+    For more information:
+  
+    -organism: Name of the organism.
+
+                1. For humans, the value should be "hs".
+                2. For mice, the value should be "mm".
+
+    -assaytype: The input RNA expression data was quantified differently based on the level of analysis.
+
+                1. For bulk or pseudo bulk data, the value is "bulk".
+                2. For Single-cell level data, the value is "single".
+
+    -inputtype: The format of the input data differs based on the analysis level.
+                1. For bulk or pseudobulk data, the value is either "rawcount" or "tpm".
+                2. For single-cell data, the value should be "umicount".
+  
+    -file: name of the input file name with the tab-separated file format.
+                1. For bulk or pseudobulk data, the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
+                2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
+
 
 # Cite us
   ```sh
