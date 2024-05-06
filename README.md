@@ -25,10 +25,6 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
   ```sh
   cd ..
   ```
-  ```sh
-  git clone https://github.com/kulansam/SCIG.git
-
-
     - Create conda environment with python:
   ```sh
   conda create -n scig (Python version >=3.9 preferable)
