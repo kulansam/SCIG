@@ -44,6 +44,7 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
   Run the following command under 'src' directory:
   
   ```sh
+    cd src
     python SCIG.py -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm | umicount> -file <tab separated expression data file | cellranger output folder>
   ```
   ```sh
@@ -66,36 +67,25 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
     -file: name of the input file name with the tab-separated file format.
                 1. For bulk or pseudobulk data, the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
                 2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
+
+   # output: The output files will be written into the user input file directory
+    1. For bulk RNA seq data, SCIG outputs the cell identity gene information in the file name that has the combination of the user input file name with 'cig_pred_result.out' extension.
+       In case of single-cell RNA seq data, the output file has the extension of '_cig_matrix_out.h5ad'.
+  
+   2. SCIGNet outputs of master transcription factors of cell identity genes in the file name that has combination of user input file name with 'REG_pred_result.out' extension. 
+
 # Example 
-- How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either bulk-RNA  or single-cell RNA sequencing profiles?
+- Utilizing SCIG and SCIGNet for uncovering cell identity genes (CIGs) and their master transcription factors in mouse endothelial cells from different tissues (such as brain, lung, and liver) using bulk-RNA profiles.
 
   Use the following command:
   
   ```sh
-    python SCIG.py -organism  mm -assaytype bulk -inputtype rawcount -file ./
+    cd src
+    python SCIG.py -organism  mm -assaytype bulk -inputtype rawcount -file ../test/GSE185642_bulkRNAseq_mouse.txt
   ```
   ```sh
-    For more information:
+    The output files will be written into the user input file directory (Here, under the 'test' directory).
   
-    -organism: Name of the organism.
-
-                1. For humans, the value should be "hs".
-                2. For mice, the value should be "mm".
-
-    -assaytype: The input RNA expression data was quantified differently based on the level of analysis.
-
-                1. For bulk or pseudo bulk data, the value is "bulk".
-                2. For Single-cell level data, the value is "single".
-
-    -inputtype: The format of the input data differs based on the analysis level.
-                1. For bulk or pseudobulk data, the value is either "rawcount" or "tpm".
-                2. For single-cell data, the value should be "umicount".
-  
-    -file: name of the input file name with the tab-separated file format.
-                1. For bulk or pseudobulk data, the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
-                2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
-
-
 # Cite us
   ```sh
   Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features
