@@ -69,7 +69,7 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
 
 # Cite us
   ```sh
-    Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features
+  Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features
   ```
    ```sh
 # Term of Usage
