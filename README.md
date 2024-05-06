@@ -4,11 +4,11 @@ In every cell type, a unique set of cell identity genes (CIGs) plays a pivotal r
 1. SCIG: SCIG: Specifying  the cell identity genes in a given cell (s) using RNA expression and genetic sequence profiles.
 2. SCIGNet: Identifying the master transcription factors of cell identity genes network  (SCIG prediction result required).
    
-# What constitutes the input data for SCIG and CIG-reg-Pred algorithms?
+# What constitutes the input data for SCIG and SCIGNet algorithms?
 
 The input for SCIG consists of either raw read counts from bulk-seq or gene per cell unique molecular identifier (UMI) count matrix from single-cell sequencing data. In addition, SCIG automatically utilizes precomputed genetic sequence features during its prediction process.
 
-For CIG-reg-Pred, the required inputs include the predicted cell identity scores obtained from the SCIG algorithm, along with gene regulatory network (GRN) information. It's worth noting that the GRN information is already integrated into the model.
+For SCIGNet, the required inputs include the predicted cell identity scores obtained from the SCIG algorithm, along with gene regulatory network (GRN) information. It's worth noting that the GRN information is already integrated into the model.
 # Installation
 - Download the SCIG package from GitHub:
   ```sh
