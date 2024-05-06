@@ -1,9 +1,9 @@
-# Welcome to SCIG: A tool for identifying cell identity genes (CIGs) and their master transcription factors at single-cell levels, utilizing genetic sequence and RNA expression profiles
+# Welcome to SCIG: A tool for Specifying the Cell Identity Genes (CIGs) and their master transcription factors at single-cell levels, utilizing genetic sequence and RNA expression profiles
 In every cell type, a unique set of cell identity genes (CIGs) plays a pivotal role in defining its specific characteristics. Alongside other gene categories like housekeeping genes and heat shock genes, cells express their CIGs, crucial for guiding cellular differentiation and the formation of tissues and organs in organisms. Thus, we have developed two logistic regression-based machine-learning methodologies for the identification of cell identity genes (CIGs) and their master transcription factors:
 
-1. SCIG: This tool accurately discerns cell identity genes by integrating genetic sequence and RNA expression profiles in a given cell type.
-2. CIG-reg-Pred: Subsequently, CIG-reg-Pred determines the master transcription factors governing the expression of identified cell identity genes in a given cell type.
-
+1. SCIG: SCIG: Specifying  the cell identity genes in a given cell (s) using RNA expression and genetic sequence profiles.
+2. SCIGNet: Identifying the master transcription factors of cell identity genes network  (SCIG prediction result required).
+   
 # What constitutes the input data for SCIG and CIG-reg-Pred algorithms?
 
 The input for SCIG consists of either raw read counts from bulk-seq or gene per cell unique molecular identifier (UMI) count matrix from single-cell sequencing data. In addition, SCIG automatically utilizes precomputed genetic sequence features during its prediction process.
@@ -17,6 +17,18 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
   ```sh
   cd SCIG
   ```
+- Extract the required files in data directory:
+  ```sh
+  cd data
+  tar -xf human_mouse_GRN.zip
+  ```
+  ```sh
+  cd ..
+  ```
+  ```sh
+  git clone https://github.com/kulansam/SCIG.git
+
+
     - Create conda environment with python:
   ```sh
   conda create -n scig (Python version >=3.9 preferable)
