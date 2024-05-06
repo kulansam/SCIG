@@ -10,27 +10,27 @@ The input for SCIG consists of either raw read counts from bulk-seq or gene per 
 
 For CIG-reg-Pred, the required inputs include the predicted cell identity scores obtained from the SCIG algorithm, along with gene regulatory network (GRN) information. It's worth noting that the GRN information is already integrated into the model.
 # Installation
-- Download SCIG package from GitHub:
+- Download the SCIG package from GitHub:
   ```sh
   git clone https://github.com/kulansam/SCIG.git
   ```
   ```sh
   cd SCIG
   ```
-- Extract the required files in data directory:
+- Extract the required files in the data directory:
   ```sh
   cd data
   tar -xf human_mouse_GRN.zip
   cd ..
   ```
-- Create conda environment with python:
+- Create a conda environment with Python:
   ```sh
   conda create -n scig (Python version >=3.9 preferable)
   ```
     ```sh
   conda activate scig
   ```
-- Install required all python packages
+- Install required all Python packages
   ```sh
   pip install -r requirements.txt
   ```
@@ -39,16 +39,17 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
   pip install .
   ```
 # Tutorial 
-- How can you discover cell identity genes (CIGs) and their master transcription factors using either bulk-RNA or pseudobulk RNA sequencing profiles?
+- How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either bulk-RNA  or single-cell RNA sequencing profiles?
+
   Use the following command:
   
   ```sh
-    python SCIG.py -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm> -file <tab separated expression data file>
+    python SCIG.py -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm | umicount> -file <tab separated expression data file | cellranger output folder>
   ```
   ```sh
     For more information:
   
-    -organism : Name of the organism.
+    -organism: Name of the organism.
 
                 1. For humans, the value should be "hs".
                 2. For mice, the value should be "mm".
@@ -63,36 +64,10 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
                 2. For single-cell data, the value should be "umicount".
   
     -file: name of the input file name with the tab-separated file format.
-                1. For bulk or pseudobulk data,the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
+                1. For bulk or pseudobulk data, the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
                 2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
 
   ```
-
-- How can you discover cell identity genes (CIGs) at single-cell level using single-cell RNA sequencing profiles?
-  Use the following command:
-  
-  ```sh
-    python SCIG.py -organism <hs> -assaytype <single> -inputtype <umicount> -file <cellranger matrix output folder name>
-  ```
-  ```sh
-    For more information:
-  
-    -organism : Name of the organism.
-
-                1. For humans, the value should be "hs".
-                2. For mice, the value should be "mm".
-
-    -assaytype: The input RNA expression data was quantified differently based on the level of analysis.
-
-                1. For bulk or pseudo bulk data, the value is "bulk".
-                2. For Single-cell level data, the value is "single".
-
-    -inputtype: The format of the input data differs based on the analysis level.
-                1. For bulk or pseudobulk data, the value is either "rawcount" or "tpm".
-                2. For single-cell data, the value should be "umicount".
-
-    -file: The directory path for the Cell Ranger output folder.
-            It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
   
   ```
 # Cite us
