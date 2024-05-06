@@ -67,9 +67,6 @@ For CIG-reg-Pred, the required inputs include the predicted cell identity scores
                 1. For bulk or pseudobulk data, the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
                 2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
 
-  ```
-  
-  ```
 # Cite us
   ```sh
     Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features
