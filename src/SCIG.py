@@ -106,11 +106,11 @@ if (len(sys.argv) ==9):
         cig_pred_output_table=pesudobulk_cigpred_human(inputtype_pred,exp_matrix,all_seq_features_human,gene_name_length_human,training_table_human)
         first_column_symbol = cig_pred_output_table.pop('symbol')
         cig_pred_output_table.insert(0, 'symbol', first_column_symbol)
-        cig_pred_output_table.to_csv(str(exp_filename_pred)+'cig_pred_result.out', index = False,sep="\t")
+        cig_pred_output_table.to_csv(str(exp_filename_pred)+'-hs-SCIG_CIGs_result.out', index = False,sep="\t")
         
         cig_reg_pred_output_table=pesudobulk_cig_reg_pred_human(cig_pred_output_table,all_db_grn_human,tf_human,training_table_cigreg_human,celltype_names)
         print(cig_reg_pred_output_table.shape)
-        cig_reg_pred_output_table.to_csv(str(exp_filename_pred)+'cig_REG_pred_result.out', index = False,sep="\t")
+        cig_reg_pred_output_table.to_csv(str(exp_filename_pred)+'-hs-SCIG_MasterTFs_result.out', index = False,sep="\t")
 
     elif organism_name_pred == 'hs' and assaytype_pred == 'single' and inputtype_pred == 'umicount' and exp_filename_pred is not None:
         print ("HUMAN",organism_name_pred,assaytype_pred,inputtype_pred,exp_filename_pred)
@@ -127,7 +127,7 @@ if (len(sys.argv) ==9):
         adata.var.index = features['Geneid'].tolist()
         adata.var_names_make_unique()##REMOVE DUPLICATES
         adata_single_cell_cig=cig_pred_singlecell_human(adata,features,all_seq_features_human,training_table_human,exp_filename_pred)
-        adata_single_cell_cig.T.write_h5ad(str(exp_filename_pred)+"_cig_matrix_out.h5ad")
+        adata_single_cell_cig.T.write_h5ad(str(exp_filename_pred)+"_hs-cig_matrix_out.h5ad")
 
     elif organism_name_pred == 'mm' and assaytype_pred == 'bulk' and exp_filename_pred is not None:
         print ("MOUSE",organism_name_pred,assaytype_pred,inputtype_pred,exp_filename_pred)
@@ -137,10 +137,10 @@ if (len(sys.argv) ==9):
         cig_pred_output_table=pesudobulk_cigpred_mouse(inputtype_pred,exp_matrix,all_seq_features_mouse,gene_name_length_mouse,training_table_mouse)
         first_column_symbol = cig_pred_output_table.pop('symbol')
         cig_pred_output_table.insert(0, 'symbol', first_column_symbol)
-        cig_pred_output_table.to_csv(str(exp_filename_pred)+'cig_pred_result.out', index = False,sep="\t")
+        cig_pred_output_table.to_csv(str(exp_filename_pred)+'_mm-SCIG_CIGs_result.out', index = False,sep="\t")
         
         cig_reg_pred_output_table=pesudobulk_cig_reg_pred_mouse(cig_pred_output_table,all_db_grn_mouse,tf_mouse,training_table_cigreg_mouse,celltype_names)
-        cig_reg_pred_output_table.to_csv(str(exp_filename_pred)+'cig_REG_pred_result.out', index = False,sep="\t")
+        cig_reg_pred_output_table.to_csv(str(exp_filename_pred)+'-mm-SCIG_MasterTFs_result.out', index = False,sep="\t")
 
     elif organism_name_pred == 'mm' and assaytype_pred == 'single' and inputtype_pred == 'umicount' and exp_filename_pred is not None:
         print ("MOUSE",organism_name_pred,assaytype_pred,inputtype_pred,exp_filename_pred)
@@ -157,7 +157,7 @@ if (len(sys.argv) ==9):
         adata.var.index = features['Geneid'].tolist()
         adata.var_names_make_unique()##REMOVE DUPLICATES
         adata_single_cell_cig=cig_pred_singlecell_mouse(adata,features,all_seq_features_mouse,training_table_mouse,exp_filename_pred)
-        adata_single_cell_cig.T.write_h5ad(str(exp_filename_pred)+"_cig_matrix_out.h5ad")
+        adata_single_cell_cig.T.write_h5ad(str(exp_filename_pred)+"-mm_CIG_matrix_out.h5ad")
 
 else:  
     printHelp()

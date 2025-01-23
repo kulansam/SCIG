@@ -72,11 +72,12 @@ def pesudobulk_cigpred_human (inputtype_pred,exp_filename_pred,alll_seq_features
         print("SCIG: Identifying the CIGs in ",i)
         ##GETTING GENE EXP DATA
         i1=i
+        #print(gene_exp)
         req_gene_exp=gene_exp.loc[:, gene_exp.columns.isin([i1])]
         req_gene_exp['Geneid']=req_gene_exp.index
         req_gene_exp=req_gene_exp.drop_duplicates()
         req_gene_exp.columns=['TPM_exon_exp_mean','Geneid']
-        req_gene_exp.reset_index(drop=True, inplace=True)   
+        req_gene_exp.reset_index(drop=True, inplace=True)
         #combine all seq features with gene expresion features
         combine_feat=pd.merge(req_gene_exp,alll_seq_features,on=['Geneid'],how='inner')
         combine_feat = combine_feat[['Geneid','TPM_exon_exp_mean','hpa_256_tiss_ntpmtau', 'gtex_db_tissuegini',
@@ -108,7 +109,7 @@ def pesudobulk_cigpred_human (inputtype_pred,exp_filename_pred,alll_seq_features
         desc_fun_pred = pd.DataFrame(desc_fun_pred)    
         desc_fun_pred.columns=[i1+'_distance']
         pred = pd.DataFrame(pred)
-        pred.columns=[i1]
+        pred.columns=[i1+'_probability']
         gene_ids = combine_feat.index
         gene_ids = pd.DataFrame(gene_ids)
         cig_score=pd.concat([gene_ids, pred], axis=1)        
@@ -142,7 +143,7 @@ def pesudobulk_cig_reg_pred_human (cig_pred_result,all_db_grn_human,tf_human,tra
     mas_tf_pred_final=pd.DataFrame()
     for c_type in celltype:
         print("SCIGNet: Identifying the  Master TF of CIGs in ",c_type)
-        c_type1=c_type
+        c_type1=c_type+'_probability'
         cig_dist=c_type+'_distance'
         c_type=c_type+'_exp'
         
@@ -245,24 +246,24 @@ def pesudobulk_cig_reg_pred_human (cig_pred_result,all_db_grn_human,tf_human,tra
         pred_cols = list(pr.columns.values)
         pred = pd.Series(mastf_loaded_model.predict_proba(pr[pred_cols])[:,1])
         pred = pd.DataFrame(pred)
-        pred.columns=[c_type]
+        pred.columns=[c_type+'MasterTF_probability']
         gene_ids = master_tf_cig_final.index
         gene_ids = pd.DataFrame(gene_ids)
         mf_pred_f=pd.concat([gene_ids, pred], axis=1)
         
         mastf_desc_fun_pred = pd.Series(mastf_loaded_model.decision_function(pr[pred_cols]))
         mastf_desc_fun_pred = pd.DataFrame(mastf_desc_fun_pred)    
-        mastf_desc_fun_pred.columns=[c_type+'_distance']
+        mastf_desc_fun_pred.columns=[c_type+'_MasterTF_distance']
         mf_pred_f = pd.concat([mf_pred_f, mastf_desc_fun_pred], axis=1)
         stats = importr('stats')
         from scipy.stats import norm
         for l_mean in np.arange(-2, 10, 0.25):
-            mf_pred_f[c_type+'_p_value'] = 1 - norm.cdf(mf_pred_f[c_type+'_distance'],loc=l_mean)
-            mf_pred_f[c_type+'_FDR'] = stats.p_adjust(FloatVector(mf_pred_f[c_type+'_p_value'].tolist()),method='BH')
-            if mf_pred_f[mf_pred_f[c_type+'_FDR'] < 0.05].shape[0]*1 <50:
+            mf_pred_f[c_type+'_MasterTF_p_value'] = 1 - norm.cdf(mf_pred_f[c_type+'_MasterTF_distance'],loc=l_mean)
+            mf_pred_f[c_type+'_MasterTF_FDR'] = stats.p_adjust(FloatVector(mf_pred_f[c_type+'_MasterTF_p_value'].tolist()),method='BH')
+            if mf_pred_f[mf_pred_f[c_type+'_MasterTF_FDR'] < 0.05].shape[0]*1 <50:
                 break
-        mf_pred_f=mf_pred_f.sort_values(by=[c_type+'_distance'], ascending=[False])
-        mf_pred_f[c_type+'_rank']=range(1, mf_pred_f.shape[0] + 1)
+        mf_pred_f=mf_pred_f.sort_values(by=[c_type+'_MasterTF_distance'], ascending=[False])
+        mf_pred_f[c_type+'_MasterTF_rank']=range(1, mf_pred_f.shape[0] + 1)
         if n_flag==1:
             
             mas_tf_pred_final=pd.concat([mas_tf_pred_final,mf_pred_f], axis=1)
